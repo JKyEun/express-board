@@ -14,12 +14,15 @@ const mainRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const boardRouter = require('./routes/board');
 const dbRouter = require('./routes/db');
+const dbBoardRouter = require('./routes/dbBoard');
 
 app.use('/', mainRouter);
 app.use('/users', userRouter);
 app.use('/board', boardRouter);
 app.use('/db', dbRouter);
+app.use('/dbBoard', dbBoardRouter);
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(err.statusCode);

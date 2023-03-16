@@ -45,7 +45,7 @@ router.post('/write', (req, res) => {
 // 글 수정 모드
 router.get('/modify/:title', (req, res) => {
   const arrIndex = ARTICLE.findIndex(
-    (article) => req.params.title === article.title
+    (article) => req.params.title === article.title,
   );
   const selectedArticle = ARTICLE[arrIndex];
   res.render('board_modify', { selectedArticle });
@@ -55,7 +55,7 @@ router.get('/modify/:title', (req, res) => {
 router.post('/modify/:title', (req, res) => {
   if (req.body.title && req.body.content) {
     const arrIndex = ARTICLE.findIndex(
-      (article) => article.title === req.params.title
+      (article) => article.title === req.params.title,
     );
     ARTICLE[arrIndex].title = req.body.title;
     ARTICLE[arrIndex].content = req.body.content;
@@ -70,7 +70,7 @@ router.post('/modify/:title', (req, res) => {
 // 글 삭제 버튼
 router.delete('/delete/:title', (req, res) => {
   const arrIndex = ARTICLE.findIndex(
-    (article) => article.title === req.params.title
+    (article) => article.title === req.params.title,
   );
   if (arrIndex !== -1) {
     ARTICLE.splice(arrIndex, 1);
