@@ -141,8 +141,8 @@
             </div>
             <div class="foot">
               <% if (ARTICLE[i].USERID === userId) { %>
-                <a class="btn orange" href="/dbBoard/modify/<%= ARTICLE[i].ID_PK %>">수정</a>
-                <a class="btn blue" href="#" onclick="deleteArticle('<%= ARTICLE[i].ID_PK %>')">삭제</a>
+              <a class="btn orange" href="/dbBoard/modify/<%= ARTICLE[i].ID_PK %>">수정</a>
+              <a class="btn blue" href="#" onclick="deleteArticle('<%= ARTICLE[i].ID_PK %>')">삭제</a>
               <% } %>
             </div>
           </li>
@@ -165,6 +165,23 @@
       }).then((res) => {
         if (res.status === 200) location.reload();
       })
+    }
+
+    function getFormatDate(date) {
+      const year = date.getFullYear();
+      const month = (1 + date.getMonth());
+      month = month > 10 ? month : '0' + month; // 10이 넘지 않으면 앞에 0을 붙인다
+      const day = date.getDate();
+      day = day > 10 ? day : '0' + day; // 10이 넘지 않으면 앞에 0을 붙인다
+      const hours = date.getHours();
+      hours = hours > 10 ? hours : '0' + hours; // 10이 넘지 않으면 앞에 0을 붙인다
+      const minutes = date.getMinutes();
+      minutes = minutes > 10 ? minutes : '0' + minutes; // 10이 넘지 않으면 앞에 0을 붙인다
+      const seconds = date.getSeconds();
+      seconds = seconds > 10 ? seconds : '0' + seconds; // 10이 넘지 않으면 앞에 0을 붙인다
+
+      // return year + '-' + month + '-' + day;
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} `
     }
   </script>
 </body>
