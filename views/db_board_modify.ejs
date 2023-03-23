@@ -131,7 +131,7 @@
       <div class="board_header">
         <h1>Modify Mode</h1>
       </div>
-      <form action="/dbBoard/modify/<%= selectedArticle._id %>" method="POST" class="board_form">
+      <form action="/dbBoard/modify/<%= selectedArticle._id %>" method="POST" class="board_form" enctype="multipart/form-data">
         <div class="form_title">
           <h3>제목</h3>
           <input type="text" name="title" value="<%= selectedArticle.TITLE %>" required />
@@ -140,6 +140,12 @@
           <h3>내용</h3>
           <textarea name="content" id="content" cols="30" rows="10" required><%= selectedArticle.CONTENT %>
           </textarea>
+        </div>
+        <div class="form-img">
+          <h3>이미지 업로드</h3>
+          <img src="/uploads/<%= selectedArticle.IMAGE %>" width="500" />
+          <br />
+          <input type="file" name="img" />
         </div>
         <button type="submit">글 수정하기</button>
       </form>

@@ -1,10 +1,9 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 // eslint-disable-next-line operator-linebreak
-const uri =
-  'mongodb+srv://j56237:qwer1234@cluster0.03qkgmh.mongodb.net/?retryWrites=true&w=majority';
+const { MONGO_DB_URI } = process.env;
 
-const client = new MongoClient(uri, {
+const client = new MongoClient(MONGO_DB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,

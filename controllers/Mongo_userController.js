@@ -1,7 +1,4 @@
-const mongooseConnect = require('./mongooseConnect');
-const User = require('../models/user');
-
-mongooseConnect();
+const mongoClient = require('./mongoConnect');
 
 const UNEXPECTED_MSG =
   '알 수 없는 문제가 발생했습니다.<br /><a href="/register">회원가입 페이지로 이동</a>';
@@ -16,10 +13,13 @@ const LOGIN_FAIL_MSG =
 
 const registerUser = async (req, res) => {
   try {
-    const duplicatedUser = await User.findOne({ id: req.body.id });
+    const client = await mongoClient.connect();
+    const user = client.db('kdt5').collection('user');
+
+    const duplicatedUser = await user.findOne({ id: req.body.id });
     if (duplicatedUser) return res.status(400).send(DUPLICATED_MSG);
 
-    await User.create(req.body);
+    await user.insertOne(req.body);
     res.status(200).send(SUCCESS_MSG);
   } catch (err) {
     console.error(err);
@@ -29,7 +29,9 @@ const registerUser = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const findUser = await User.findOne({
+    const client = await mongoClient.connect();
+    const user = client.db('kdt5').collection('user');
+    const findUser = await user.findOne({
       id: req.body.id,
       password: req.body.password,
     });

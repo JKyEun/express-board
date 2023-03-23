@@ -31,6 +31,7 @@ const writeArticle = async (req, res) => {
       USERID: req.session.userId,
       TITLE: req.body.title,
       CONTENT: req.body.content,
+      IMAGE: req.file ? req.file.filename : null,
     };
     await board.insertOne(newArticle);
     res.redirect('/dbBoard');
@@ -61,6 +62,10 @@ const modifyArticle = async (req, res) => {
     const client = await mongoClient.connect();
     const board = client.db('kdt5').collection('board');
 
+    const selectedArticle = await board.findOne({
+      _id: ObjectId(req.params.id),
+    });
+
     await board.updateOne(
       { _id: ObjectId(req.params.id) },
       {
@@ -68,6 +73,7 @@ const modifyArticle = async (req, res) => {
           USERID: req.session.userId,
           TITLE: req.body.title,
           CONTENT: req.body.content,
+          IMAGE: req.file ? req.file.filename : selectedArticle.IMAGE,
         },
       },
     );
